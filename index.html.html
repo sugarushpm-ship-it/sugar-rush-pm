@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sugar Rush PM 🍧</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--pink:#fecde0;
+--softpink:#ffdff1;
+--blue:#dfebfd;
+--strong:#ff4fa3;
+}
+
+body{
+margin:0;
+font-family:'Fredoka', sans-serif;
+background:linear-gradient(135deg,var(--pink),var(--blue));
+overflow-x:hidden;
+padding-bottom:140px;
+}
+
+/* 🌸 EMOJIS SUBIENDO */
+.bg-emoji{
+position:fixed;
+font-size:10px;
+opacity:0.12;
+animation:staying lineal infinite;
+z-index:0;
+pointer-events:none;
+}
+
+@keyframes floatBg{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+
+/* HEADER */
+.header{
+text-align:center;
+padding:50px 20px;
+background:var(--softpink);
+position:relative;
+z-index:2;
+}
+
+.logo-img{
+width:320px;
+max-width:90%;
+display:block;
+margin:auto;
+margin-bottom:20px;
+}
+
+.header p{
+color:#555;
+font-size:18px;
+}
+
+.btn{
+background:var(--strong);
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+margin:10px;
+transition:0.3s;
+}
+
+.btn:hover{ transform:scale(1.05); }
+
+.section{
+padding:40px 20px;
+text-align:center;
+position:relative;
+z-index:2;
+}
+
+.section h2{ color:var(--strong); }
+
+.options{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+width:220px;
+border-radius:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.card:hover{ transform:translateY(-6px); }
+
+.card button{
+margin-top:10px;
+background:var(--softpink);
+border:none;
+padding:8px 18px;
+border-radius:20px;
+cursor:pointer;
+font-weight:600;
+color:var(--strong);
+}
+
+/* 🛒 CARRITO */
+.cart-toggle{
+position:fixed;
+bottom:90px;
+right:20px;
+background:var(--strong);
+color:white;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+cursor:pointer;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+z-index:1001;
+}
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-5px;
+background:white;
+color:var(--strong);
+font-size:12px;
+width:22px;
+height:22px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
+
+.cart{
+position:fixed;
+left:50%;
+transform:translateX(-50%);
+bottom:160px;
+background:white;
+width:92%;
+max-width:420px;
+border-radius:25px;
+padding:20px;
+box-shadow:0 15px 35px rgba(0,0,0,0.18);
+z-index:1000;
+display:none;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:8px;
+font-size:14px;
+}
+
+.remove-btn{
+background:none;
+border:none;
+color:var(--strong);
+font-weight:bold;
+cursor:pointer;
+font-size:16px;
+}
+
+.cart-items{
+max-height:150px;
+overflow-y:auto;
+margin-bottom:10px;
+}
+
+.total{ font-weight:600; }
+
+.small-btn{
+background:#eee;
+border:none;
+padding:6px 12px;
+border-radius:15px;
+cursor:pointer;
+margin-top:8px;
+font-size:12px;
+}
+
+/* 💖 POP EMOJI */
+.pop-emoji{
+position:fixed;
+font-size:20px;
+animation:popFloat 1s ease-out forwards;
+pointer-events:none;
+z-index:2000;
+}
+
+@keyframes popFloat{
+0%{opacity:1; transform:translateY(0) scale(1);}
+100%{opacity:0; transform:translateY(-70px) scale(1.8);}
+}
+
+footer{
+text-align:center;
+padding:25px;
+background:var(--softpink);
+margin-top:60px;
+position:relative;
+z-index:2;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<img src="logo.png" class="logo-img">
+<p>Arma tu antojo perfecto y compite por el sabor más especial ✨</p>
+<a href="https://instagram.com/sugarrushpm" target="_blank">
+<button class="btn">Instagram @sugarrushpm 💖</button>
+</a>
+</div>
+
+<!-- PRODUCTOS (SIN CAMBIOS) -->
+
+<div class="section">
+<h2>🍨 Tamaño de Nieve</h2>
+<div class="options">
+<div class="card"><h3>Grande</h3><p>$40</p><button onclick="addToCart('Nieve Grande',40,event)">Agregar</button></div>
+<div class="card"><h3>Mediana</h3><p>$35</p><button onclick="addToCart('Nieve Mediana',35,event)">Agregar</button></div>
+<div class="card"><h3>Pequeña</h3><p>$25</p><button onclick="addToCart('Nieve Pequeña',25,event)">Agregar</button></div>
+</div>
+</div>
+
+<div class="section">
+<h2>🍬 Gomitas (Opcional)</h2>
+<div class="options">
+<div class="card"><h3>Ositos</h3><p>$10</p><button onclick="addToCart('Gomitas Ositos',10,event)">Agregar</button></div>
+<div class="card"><h3>Gusanos</h3><p>$10</p><button onclick="addToCart('Gusanos',10,event)">Agregar</button></div>
+<div class="card"><h3>Aros Ácidos</h3><p>$10</p><button onclick="addToCart('Aros Ácidos',10,event)">Agregar</button></div>
+</div>
+</div>
+
+<div class="section">
+<h2>🍓 Pilones de Fruta</h2>
+<div class="options">
+<div class="card"><h3>Mango</h3><p>$15</p><button onclick="addToCart('Pilón Mango',15,event)">Agregar</button></div>
+<div class="card"><h3>Fresa Natural</h3><p>$15</p><button onclick="addToCart('Pilón Fresa',15,event)">Agregar</button></div>
+</div>
+</div>
+
+<div class="section">
+<h2>🌶️ Chamoy & Tajín (Opcional)</h2>
+<div class="options">
+<div class="card"><h3>Chamoy</h3><p>$5</p><button onclick="addToCart('Chamoy',5,event)">Agregar</button></div>
+<div class="card"><h3>Tajín</h3><p>$5</p><button onclick="addToCart('Tajín',5,event)">Agregar</button></div>
+</div>
+</div>
+
+<!-- CARRITO -->
+<div class="cart-toggle" onclick="toggleCart()">
+🛒
+<div class="cart-count" id="cartCount">0</div>
+</div>
+
+<div class="cart" id="cartBox">
+<h3>Tu Pedido 🍓</h3>
+<div class="cart-items" id="cartItems"></div>
+<p class="total">Total: L <span id="total">0</span></p>
+<button class="btn" onclick="checkout()">Ordenar por WhatsApp 💬</button>
+<br>
+<button class="small-btn" onclick="clearCart()">Vaciar carrito</button>
+</div>
+
+<footer>
+📍 Instituto Pablo Menzel<br>
+📱 Instagram @sugarrushpm<br>
+📩 sugarushpm@gmail.com<br>
+📲 WhatsApp: +504 3245-7029<br><br>
+© 2026 Sugar Rush PM 🍧
+</footer>
+
+<script>
+let cart=[];
+let total=0;
+let audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+
+/* 🎵 Música */
+let musicInterval;
+
+function playSailorStyle(){
+const melody=[659,784,880,1046,988,880,784,659];
+let start=audioCtx.currentTime;
+melody.forEach((freq,i)=>{
+const osc=audioCtx.createOscillator();
+const gain=audioCtx.createGain();
+osc.type="triangle";
+osc.frequency.value=freq;
+gain.gain.setValueAtTime(0.08,start+(i*0.4));
+gain.gain.exponentialRampToValueAtTime(0.001,start+(i*0.4)+0.4);
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+osc.start(start+(i*0.4));
+osc.stop(start+(i*0.4)+0.4);
+});
+}
+
+document.body.addEventListener("click",()=>{
+playSailorStyle();
+musicInterval=setInterval(playSailorStyle,3200);
+},{once:true});
+
+/* 🛑 Detener música */
+function stopMusic(){
+clearInterval(musicInterval);
+if(audioCtx){
+audioCtx.close();
+}
+}
+
+/* 🔊 Sonido agregar */
+function playKawaiiSound(){
+const osc=audioCtx.createOscillator();
+const gain=audioCtx.createGain();
+osc.type="square";
+osc.frequency.setValueAtTime(880,audioCtx.currentTime);
+osc.frequency.exponentialRampToValueAtTime(1320,audioCtx.currentTime+0.15);
+gain.gain.setValueAtTime(0.2,audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.2);
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+osc.start();
+osc.stop(audioCtx.currentTime+0.2);
+}
+
+/* 🌸 Emojis subiendo */
+function createBgEmoji(){
+const emojis=["🌸","🍓","✨","🍬","💮"];
+const e=document.createElement("div");
+e.className="bg-emoji";
+e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+e.style.left=Math.random()*100+"vw";
+e.style.animationDuration=(8+Math.random()*10)+"s";
+e.style.fontSize=(10+Math.random()*10)+"px";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),18000);
+}
+setInterval(createBgEmoji,1200);
+
+/* 💫 Emojis rebotando */
+function createBouncingEmoji(){
+const emojis=["🌸","✨","🍓","💖","🍬","🌟","💫"];
+const e=document.createElement("div");
+e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+e.style.position="fixed";
+e.style.fontSize=(20+Math.random()*20)+"px";
+e.style.opacity="0.12";
+e.style.pointerEvents="none";
+e.style.zIndex="0";
+let x=Math.random()*window.innerWidth;
+let y=Math.random()*window.innerHeight;
+let dx=(Math.random()*2+1);
+let dy=(Math.random()*2+1);
+e.style.left=x+"px";
+e.style.top=y+"px";
+document.body.appendChild(e);
+function animate(){
+x+=dx; y+=dy;
+if(x<=0||x>=window.innerWidth-50) dx*=-1;
+if(y<=0||y>=window.innerHeight-50) dy*=-1;
+e.style.left=x+"px";
+e.style.top=y+"px";
+requestAnimationFrame(animate);
+}
+animate();
+}
+for(let i=0;i<12;i++){ createBouncingEmoji(); }
+
+/* 💖 Pop emoji */
+function popEmoji(x,y){
+const emojis=["💖","✨","🍓","🌸"];
+const e=document.createElement("div");
+e.className="pop-emoji";
+e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+e.style.left=x+"px";
+e.style.top=y+"px";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),1000);
+}
+
+function addToCart(name,price,event){
+cart.push({name,price});
+total+=price;
+playKawaiiSound();
+popEmoji(event.clientX,event.clientY);
+renderCart();
+}
+
+function removeItem(index){
+total-=cart[index].price;
+cart.splice(index,1);
+renderCart();
+}
+
+function clearCart(){
+cart=[]; total=0; renderCart();
+}
+
+function renderCart(){
+let cartItems=document.getElementById("cartItems");
+cartItems.innerHTML="";
+cart.forEach((item,index)=>{
+cartItems.innerHTML+=`
+<div class="cart-item">
+<span>${item.name} - L ${item.price}</span>
+<button class="remove-btn" onclick="removeItem(${index})">✖</button>
+</div>`;
+});
+document.getElementById("total").innerText=total;
+document.getElementById("cartCount").innerText=cart.length;
+}
+
+function toggleCart(){
+let cartBox=document.getElementById("cartBox");
+cartBox.style.display=cartBox.style.display==="block"?"none":"block";
+}
+
+function checkout(){
+if(cart.length===0){
+alert("Tu carrito está vacío 💔");
+return;
+}
+stopMusic();
+let message="Hola! Quiero ordenar:%0A";
+cart.forEach(item=>{
+message+=`- ${item.name} L ${item.price}%0A`;
+});
+message+=`Total: L ${total}`;
+window.location.href=`https://wa.me/50432457029?text=${message}`;
+}
+</script>
+
+</body>
+</html>
